@@ -17,6 +17,15 @@ const theView: React.FC<{ viewModel: ViewModel }> = ({ viewModel }) => {
   );
 };
 
+const theView2: React.FC<{ viewModel: ViewModel }> = ({ viewModel }) => {
+  const { name, surname } = viewModel.props;
+  return (
+    <div style={{ border: "solid black 1px" }}>
+      hey {name} {surname} <br />
+    </div>
+  );
+};
+
 function bind<TProps>(V: any, viewModel: any) {
   return (props => {
     const vm = React.useMemo(() => {
@@ -30,6 +39,7 @@ function bind<TProps>(V: any, viewModel: any) {
 }
 
 const Example = bind<Props>(theView, ViewModel);
+const Example2 = bind<Props>(theView2, ViewModel);
 
 function App() {
   const [name, setName] = React.useState("John");
@@ -39,7 +49,7 @@ function App() {
   return (
     <div className="App">
       {show && (
-        <Example name={name} surname="Doe" setByeMessage={setByeByemessage} />
+        <Example2 name={name} surname="Doe" setByeMessage={setByeByemessage} />
       )}
       <button
         onClick={() => (name === "John" ? setName("Tom") : setName("John"))}
