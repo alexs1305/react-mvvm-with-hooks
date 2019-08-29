@@ -1,6 +1,6 @@
 import * as React from "react";
 import { render } from "react-dom";
-import { ViewModel, Props } from "./ViewModel";
+import { ViewModel, Props, ViewModel2 } from "./ViewModel";
 import "./styles.css";
 
 const theView: React.FC<{ viewModel: ViewModel }> = ({ viewModel }) => {
@@ -40,6 +40,7 @@ function bind<TProps>(V: any, viewModel: any) {
 
 const Example = bind<Props>(theView, ViewModel);
 const Example2 = bind<Props>(theView2, ViewModel);
+const Example3 = bind<Props>(theView2, ViewModel2);
 
 function App() {
   const [name, setName] = React.useState("John");
@@ -49,7 +50,11 @@ function App() {
   return (
     <div className="App">
       {show && (
-        <Example2 name={name} surname="Doe" setByeMessage={setByeByemessage} />
+        <Example3
+          name={name}
+          surname={surname}
+          setByeMessage={setByeByemessage}
+        />
       )}
       <button
         onClick={() => (name === "John" ? setName("Tom") : setName("John"))}

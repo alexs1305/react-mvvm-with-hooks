@@ -38,3 +38,7 @@ export class ViewModel implements IViewModel<Props> {
     useEffect(() => () => this.props.setByeMessage("bye bye"), [true]);
   }
 }
+
+export class ViewModel2 extends ViewModel {
+  useHooks() {}
+}
