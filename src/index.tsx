@@ -40,7 +40,7 @@ function bind<TProps>(V: any, viewModel: any) {
 
 const Example = bind<Props>(theView, ViewModel);
 const Example2 = bind<Props>(theView2, ViewModel);
-const Example3 = bind<Props>(theView2, ViewModel2);
+const Example3 = bind<Props>(theView, ViewModel2);
 
 function App() {
   const [name, setName] = React.useState("John");

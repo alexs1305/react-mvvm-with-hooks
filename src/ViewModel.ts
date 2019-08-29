@@ -40,5 +40,14 @@ export class ViewModel implements IViewModel<Props> {
 }
 
 export class ViewModel2 extends ViewModel {
-  useHooks() {}
+  useHooks() {
+    super.useHooks();
+    this.trackSurnameChanges();
+  }
+
+  trackSurnameChanges() {
+    useEffect(() => {
+      this.setTimesRendered(this.timesRendered + 1);
+    }, [this.props.surname]);
+  }
 }
