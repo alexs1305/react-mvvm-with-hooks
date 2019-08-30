@@ -1,9 +1,15 @@
 import * as React from "react";
 import { render } from "react-dom";
-import { ViewModel, Props, ViewModel2 } from "./ViewModel";
 import "./styles.css";
+import { ViewModel } from "./viewmodels/viewmodel";
+import {
+  BasicViewModel,
+  BasicViewModelProps
+} from "./viewmodels/BasicViewModel";
+import { DerivedViewModel } from "./viewmodels/DerivedViewModel";
+import { bind } from "./bind";
 
-const theView: React.FC<{ viewModel: ViewModel }> = ({ viewModel }) => {
+const theView: React.FC<{ viewModel: BasicViewModel }> = ({ viewModel }) => {
   return (
     <div>
       hey {viewModel.props.name} <br />
@@ -17,7 +23,7 @@ const theView: React.FC<{ viewModel: ViewModel }> = ({ viewModel }) => {
   );
 };
 
-const theView2: React.FC<{ viewModel: ViewModel }> = ({ viewModel }) => {
+const theView2: React.FC<{ viewModel: BasicViewModel }> = ({ viewModel }) => {
   const { name, surname } = viewModel.props;
   return (
     <div style={{ border: "solid black 1px" }}>
@@ -26,21 +32,9 @@ const theView2: React.FC<{ viewModel: ViewModel }> = ({ viewModel }) => {
   );
 };
 
-function bind<TProps>(V: any, viewModel: any) {
-  return (props => {
-    const vm = React.useMemo(() => {
-      const n = new viewModel();
-      n.props = { ...props };
-      return n;
-    }, [props]);
-    vm.useHooks();
-    return <V viewModel={vm} />;
-  }) as React.FC<TProps>;
-}
-
-const Example = bind<Props>(theView, ViewModel);
-const Example2 = bind<Props>(theView2, ViewModel);
-const Example3 = bind<Props>(theView, ViewModel2);
+const Example = bind<BasicViewModelProps>(theView, BasicViewModel);
+const Example2 = bind<BasicViewModelProps>(theView2, BasicViewModel);
+const Example3 = bind<BasicViewModelProps>(theView, DerivedViewModel);
 
 function App() {
   const [name, setName] = React.useState("John");
